@@ -1,0 +1,24 @@
+PODS:
+  - InputBarAccessoryView (4.2.2)
+  - MessageKit (3.0.0):
+    - InputBarAccessoryView (~> 4.2.2)
+
+DEPENDENCIES:
+  - InputBarAccessoryView
+  - MessageKit (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - InputBarAccessoryView
+
+EXTERNAL SOURCES:
+  MessageKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
+  MessageKit: 727f80d121b859855ad9fba3d032d23705147c78
+
+PODFILE CHECKSUM: a8f07187133e41075b429219ad4679d7bbd83f2d
+
+COCOAPODS: 1.8.4
