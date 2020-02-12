@@ -28,7 +28,7 @@ import MessageKit
 import InputBarAccessoryView
 
 final class AdvancedExampleViewController: ChatViewController {
-        
+    
     let outgoingAvatarOverlap: CGFloat = 17.5
     
     override func viewDidLoad() {
@@ -42,41 +42,42 @@ final class AdvancedExampleViewController: ChatViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        MockSocket.shared.connect(with: [SampleData.shared.nathan, SampleData.shared.wu])
+        MockSocket.shared.connect(with: [SampleData.shared.marco])
             .onTypingStatus { [weak self] in
                 self?.setTypingIndicatorViewHidden(false)
-            }.onNewMessage { [weak self] message in
-                self?.setTypingIndicatorViewHidden(true, performUpdates: {
-                    self?.insertMessage(message)
-                })
+        }.onNewMessage { [weak self] message in
+            self?.setTypingIndicatorViewHidden(true, performUpdates: {
+                print ("******************* \n\n\n\n\n\n" + String(message.messageId))
+                self?.insertMessage(message)
+            })
         }
     }
     
     override func loadFirstMessages() {
         /*
-        DispatchQueue.global(qos: .userInitiated).async {
-            let count = UserDefaults.standard.mockMessagesCount()
-            SampleData.shared.getAdvancedMessages(count: count) { messages in
-                DispatchQueue.main.async {
-                    self.messageList = messages
-                    self.messagesCollectionView.reloadData()
-                    self.messagesCollectionView.scrollToBottom()
-                }
-            }
-        } */
+         DispatchQueue.global(qos: .userInitiated).async {
+         let count = UserDefaults.standard.mockMessagesCount()
+         SampleData.shared.getAdvancedMessages(count: count) { messages in
+         DispatchQueue.main.async {
+         self.messageList = messages
+         self.messagesCollectionView.reloadData()
+         self.messagesCollectionView.scrollToBottom()
+         }
+         }
+         } */
     }
     
     override func loadMoreMessages() {
         /*
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
-            SampleData.shared.getAdvancedMessages(count: 20) { messages in
-                DispatchQueue.main.async {
-                    self.messageList.insert(contentsOf: messages, at: 0)
-                    self.messagesCollectionView.reloadDataAndKeepOffset()
-                    self.refreshControl.endRefreshing()
-                }
-            }
-        } */
+         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
+         SampleData.shared.getAdvancedMessages(count: 20) { messages in
+         DispatchQueue.main.async {
+         self.messageList.insert(contentsOf: messages, at: 0)
+         self.messagesCollectionView.reloadDataAndKeepOffset()
+         self.refreshControl.endRefreshing()
+         }
+         }
+         } */
     }
     
     override func configureMessageCollectionView() {
@@ -89,7 +90,7 @@ final class AdvancedExampleViewController: ChatViewController {
         layout?.setMessageOutgoingAvatarSize(.zero)
         layout?.setMessageOutgoingMessageTopLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)))
         layout?.setMessageOutgoingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)))
-
+        
         // Set outgoing avatar to overlap with the message bubble
         layout?.setMessageIncomingMessageTopLabelAlignment(LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 18, bottom: outgoingAvatarOverlap, right: 0)))
         layout?.setMessageIncomingAvatarSize(CGSize(width: 30, height: 30))
@@ -100,7 +101,7 @@ final class AdvancedExampleViewController: ChatViewController {
         layout?.setMessageIncomingAccessoryViewPosition(.messageBottom)
         layout?.setMessageOutgoingAccessoryViewSize(CGSize(width: 30, height: 30))
         layout?.setMessageOutgoingAccessoryViewPadding(HorizontalEdgeInsets(left: 0, right: 8))
-
+        
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
     }
@@ -108,22 +109,48 @@ final class AdvancedExampleViewController: ChatViewController {
     override func configureMessageInputBar() {
         super.configureMessageInputBar()
         
-        messageInputBar.isTranslucent = true
+        
+        messageInputBar.layer.shadowColor = UIColor.black.cgColor
+        messageInputBar.layer.shadowRadius = 4
+        messageInputBar.layer.shadowOpacity = 0.3
+        messageInputBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         messageInputBar.separatorLine.isHidden = true
-        messageInputBar.inputTextView.tintColor = .primaryColor
-        messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
-        messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
-        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 36)
-        messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
-        messageInputBar.inputTextView.layer.borderWidth = 1.0
-        messageInputBar.inputTextView.layer.cornerRadius = 16.0
-        messageInputBar.inputTextView.layer.masksToBounds = true
-        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+
+        /*
+         messageInputBar.isTranslucent = true
+         messageInputBar.separatorLine.isHidden = true
+         messageInputBar.inputTextView.tintColor = .primaryColor
+         messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+         messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+         messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
+         messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 36)
+         messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
+         messageInputBar.inputTextView.layer.borderWidth = 1.0
+         messageInputBar.inputTextView.layer.cornerRadius = 16.0
+         messageInputBar.inputTextView.layer.masksToBounds = true
+         messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0) */
         configureInputBarItems()
     }
-
+    
     private func configureInputBarItems() {
+        
+        //messageInputBar.setMiddleContentView(messageInputBar.inputTextView, animated: false)
+        /*        messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false)
+         //let bottomItems = [makeButton(named: "ic_at"), makeButton(named: "ic_hashtag"), .flexibleSpace]
+         //messageInputBar.setStackViewItems(bottomItems, forStack: .bottom, animated: false)
+         
+         messageInputBar.sendButton.activityViewColor = .white
+         messageInputBar.sendButton.backgroundColor = .primaryColor
+         messageInputBar.sendButton.layer.cornerRadius = 10
+         messageInputBar.sendButton.setTitleColor(.white, for: .normal)
+         messageInputBar.sendButton.setTitleColor(UIColor(white: 1, alpha: 0.3), for: .highlighted)
+         messageInputBar.sendButton.setTitleColor(UIColor(white: 1, alpha: 0.3), for: .disabled)
+         messageInputBar.sendButton.addTarget(self, action: #selector(printChat), for: .touchUpInside) */
+        tMessage.text = nil
+        tMessage.textColor = UIColor.black
+        //       messageInputBar.sendButton.isEnabled = true
+        
+        
         messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false)
         messageInputBar.sendButton.imageView?.backgroundColor = UIColor(white: 0.85, alpha: 1)
         messageInputBar.sendButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
@@ -132,6 +159,13 @@ final class AdvancedExampleViewController: ChatViewController {
         messageInputBar.sendButton.title = nil
         messageInputBar.sendButton.imageView?.layer.cornerRadius = 16
         messageInputBar.middleContentViewPadding.right = -38
+        
+//        messageInputBar.sendButton.addTarget(self, action: #selector(printChat), for: .touchUpInside)
+        
+        messageInputBar.sendButton.isEnabled = true
+        
+        
+        
         let charCountButton = InputBarButtonItem()
             .configure {
                 $0.title = "0/140"
@@ -139,32 +173,47 @@ final class AdvancedExampleViewController: ChatViewController {
                 $0.setTitleColor(UIColor(white: 0.6, alpha: 1), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 10, weight: .bold)
                 $0.setSize(CGSize(width: 50, height: 25), animated: false)
-            }.onTextViewDidChange { (item, textView) in
-                item.title = "\(textView.text.count)/140"
-                let isOverLimit = textView.text.count > 140
-                item.inputBarAccessoryView?.shouldManageSendButtonEnabledState = !isOverLimit // Disable automated management when over limit
-                if isOverLimit {
-                    item.inputBarAccessoryView?.sendButton.isEnabled = false
-                }
-                let color = isOverLimit ? .red : UIColor(white: 0.6, alpha: 1)
-                item.setTitleColor(color, for: .normal)
+        }.onTextViewDidChange { (item, textView) in
+            item.title = "\(textView.text.count)/140"
+            let isOverLimit = textView.text.count > 140
+            item.inputBarAccessoryView?.shouldManageSendButtonEnabledState = !isOverLimit // Disable automated management when over limit
+            if isOverLimit {
+                item.inputBarAccessoryView?.sendButton.isEnabled = false
+            }
+            let color = isOverLimit ? .red : UIColor(white: 0.6, alpha: 1)
+            item.setTitleColor(color, for: .normal)
         }
-        let bottomItems = [.flexibleSpace, charCountButton]
+        let bottomItems = [.flexibleSpace, messageInputBar.sendButton, charCountButton]
         messageInputBar.middleContentViewPadding.bottom = 8
         messageInputBar.setStackViewItems(bottomItems, forStack: .bottom, animated: false)
-
+        
         // This just adds some more flare
-        messageInputBar.sendButton
+       messageInputBar.sendButton
             .onEnabled { item in
                 UIView.animate(withDuration: 0.3, animations: {
                     item.imageView?.backgroundColor = .primaryColor
                 })
-            }.onDisabled { item in
-                UIView.animate(withDuration: 0.3, animations: {
-                    item.imageView?.backgroundColor = UIColor(white: 0.85, alpha: 1)
-                })
-        }
+        }.onDisabled { item in
+            UIView.animate(withDuration: 0.3, animations: {
+                item.imageView?.backgroundColor = UIColor(white: 0.85, alpha: 1)
+            })
+        } 
+     /*
+        bSDK.registerKbdTarget(withID: tMessage, andName: "CREDIT_INPUT", andTargetType: NORMAL_TARGET)
+        bSDK.addInformation("data from input view", withName: "message_data")
+        bSDK.addInformation("message1", withName: "viewIdentifier")
+        
+        //TouchSDK
+        bSDK.enableTouch(with: self);
+        bSDK.startMotionDetect()
+        
+        
+        print ("Button is enabled " + String(messageInputBar.sendButton.isEnabled))
+        */
+        
     }
+    
+    
     
     // MARK: - Helpers
     
@@ -198,20 +247,20 @@ final class AdvancedExampleViewController: ChatViewController {
                 $0.image = UIImage(named: named)?.withRenderingMode(.alwaysTemplate)
                 $0.setSize(CGSize(width: 25, height: 25), animated: false)
                 $0.tintColor = UIColor(white: 0.8, alpha: 1)
-            }.onSelected {
-                $0.tintColor = .primaryColor
-            }.onDeselected {
-                $0.tintColor = UIColor(white: 0.8, alpha: 1)
-            }.onTouchUpInside {
-                print("Item Tapped")
-                let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                let action = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                actionSheet.addAction(action)
-                if let popoverPresentationController = actionSheet.popoverPresentationController {
-                    popoverPresentationController.sourceView = $0
-                    popoverPresentationController.sourceRect = $0.frame
-                }
-                self.navigationController?.present(actionSheet, animated: true, completion: nil)
+        }.onSelected {
+            $0.tintColor = .primaryColor
+        }.onDeselected {
+            $0.tintColor = UIColor(white: 0.8, alpha: 1)
+        }.onTouchUpInside {
+            print("Item Tapped")
+            let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let action = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            actionSheet.addAction(action)
+            if let popoverPresentationController = actionSheet.popoverPresentationController {
+                popoverPresentationController.sourceView = $0
+                popoverPresentationController.sourceRect = $0.frame
+            }
+            self.navigationController?.present(actionSheet, animated: true, completion: nil)
         }
     }
     
@@ -222,13 +271,13 @@ final class AdvancedExampleViewController: ChatViewController {
         guard let messagesDataSource = messagesCollectionView.messagesDataSource else {
             fatalError("Ouch. nil data source for messages")
         }
-
+        
         // Very important to check this when overriding `cellForItemAt`
         // Super method will handle returning the typing indicator cell
         guard !isSectionReservedForTypingIndicator(indexPath.section) else {
             return super.collectionView(collectionView, cellForItemAt: indexPath)
         }
-
+        
         let message = messagesDataSource.messageForItem(at: indexPath, in: messagesCollectionView)
         if case .custom = message.kind {
             let cell = messagesCollectionView.dequeueReusableCell(CustomCell.self, for: indexPath)
@@ -237,9 +286,9 @@ final class AdvancedExampleViewController: ChatViewController {
         }
         return super.collectionView(collectionView, cellForItemAt: indexPath)
     }
-
+    
     // MARK: - MessagesDataSource
-
+    
     override func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if isTimeLabelVisible(at: indexPath) {
             return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
@@ -254,27 +303,27 @@ final class AdvancedExampleViewController: ChatViewController {
         }
         return nil
     }
-
+    
     override func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-
+        
         if !isNextMessageSameSender(at: indexPath) && isFromCurrentSender(message: message) {
             return NSAttributedString(string: "Delivered", attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
         }
         return nil
     }
-
+    
 }
 
 // MARK: - MessagesDisplayDelegate
 
 extension AdvancedExampleViewController: MessagesDisplayDelegate {
-
+    
     // MARK: - Text Messages
-
+    
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .white : .darkText
     }
-
+    
     func detectorAttributes(for detector: DetectorType, and message: MessageType, at indexPath: IndexPath) -> [NSAttributedString.Key: Any] {
         switch detector {
         case .hashtag, .mention:
@@ -286,17 +335,17 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
         default: return MessageLabel.defaultAttributes
         }
     }
-
+    
     func enabledDetectors(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> [DetectorType] {
         return [.url, .address, .phoneNumber, .date, .transitInformation, .mention, .hashtag]
     }
-
+    
     // MARK: - All Messages
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .primaryColor : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
-
+    
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
         
         var corners: UIRectCorner = []
@@ -343,10 +392,10 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
         // ensure any subviews are removed if not needed
         accessoryView.subviews.forEach { $0.removeFromSuperview() }
         accessoryView.backgroundColor = .clear
-
+        
         let shouldShow = Int.random(in: 0...10) == 0
         guard shouldShow else { return }
-
+        
         let button = UIButton(type: .infoLight)
         button.tintColor = .primaryColor
         accessoryView.addSubview(button)
@@ -379,13 +428,13 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
         
         return LocationMessageSnapshotOptions(showsBuildings: true, showsPointsOfInterest: true, span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10))
     }
-
+    
     // MARK: - Audio Messages
-
+    
     func audioTintColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return self.isFromCurrentSender(message: message) ? .white : .primaryColor
     }
-
+    
     func configureAudioCell(_ cell: AudioMessageCell, message: MessageType) {
         audioController.configureAudioCell(cell, message: message) // this is needed especily when the cell is reconfigure while is playing sound
     }
@@ -395,7 +444,7 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
 // MARK: - MessagesLayoutDelegate
 
 extension AdvancedExampleViewController: MessagesLayoutDelegate {
-
+    
     func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         if isTimeLabelVisible(at: indexPath) {
             return 18
@@ -410,9 +459,9 @@ extension AdvancedExampleViewController: MessagesLayoutDelegate {
             return !isPreviousMessageSameSender(at: indexPath) ? (20 + outgoingAvatarOverlap) : 0
         }
     }
-
+    
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return (!isNextMessageSameSender(at: indexPath) && isFromCurrentSender(message: message)) ? 16 : 0
     }
-
+    
 }

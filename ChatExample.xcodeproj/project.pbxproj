@@ -39,6 +39,8 @@
 		C7CA53A1B85256A5097E7DC7 /* Pods_ChatExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B316705C4717C3B4C916D62 /* Pods_ChatExample.framework */; };
 		D9087FA523F1E9A00057F85D /* BehavioSecIOSSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9087FA323F1E9A00057F85D /* BehavioSecIOSSDK.a */; };
 		D9087FA923F1E9C70057F85D /* BSSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D9087FA823F1E9C70057F85D /* BSSession.m */; };
+		D9087FD823F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9087FD723F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift */; };
+		D9087FDA23F2F2920057F85D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9087FD923F2F2920057F85D /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,8 @@
 		D9087FA623F1E9C60057F85D /* ChatExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChatExample-Bridging-Header.h"; sourceTree = "<group>"; };
 		D9087FA723F1E9C70057F85D /* BSSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSession.h; sourceTree = "<group>"; };
 		D9087FA823F1E9C70057F85D /* BSSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSession.m; sourceTree = "<group>"; };
+		D9087FD723F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankingDemoDialogFlowViewController.swift; sourceTree = "<group>"; };
+		D9087FD923F2F2920057F85D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +204,7 @@
 			children = (
 				385C293B211FF38E0010B4BA /* AdvancedExampleViewController.swift */,
 				38CCCC582258419300DD5482 /* AutocompleteExampleViewController.swift */,
+				D9087FD723F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift */,
 				385C2940211FF38F0010B4BA /* BasicExampleViewController.swift */,
 				385C2941211FF38F0010B4BA /* ChatViewController.swift */,
 				385C293F211FF38F0010B4BA /* LaunchViewController.swift */,
@@ -278,6 +283,7 @@
 				385C2924211FF3310010B4BA /* Views */,
 				5074EF4B2163554900D82952 /* Sounds */,
 				882B5E791CF7D53600B6E160 /* Assets.xcassets */,
+				D9087FD923F2F2920057F85D /* Settings.bundle */,
 				882B5E7F1CF7D53600B6E160 /* Info.plist */,
 				882B5E7A1CF7D53600B6E160 /* LaunchScreen.storyboard */,
 				385C292A211FF3450010B4BA /* Settings+UserDefaults.swift */,
@@ -431,6 +437,7 @@
 			files = (
 				5074EF4F2163555900D82952 /* sound1.m4a in Resources */,
 				882B5E821CF7D53600B6E160 /* Assets.xcassets in Resources */,
+				D9087FDA23F2F2920057F85D /* Settings.bundle in Resources */,
 				5074EF4E2163555900D82952 /* sound2.m4a in Resources */,
 				882B5E831CF7D53600B6E160 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -566,6 +573,7 @@
 				385C2943211FF38F0010B4BA /* SettingsViewController.swift in Sources */,
 				385C2927211FF33B0010B4BA /* MockSocket.swift in Sources */,
 				385C2947211FF38F0010B4BA /* BasicExampleViewController.swift in Sources */,
+				D9087FD823F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift in Sources */,
 				882B5E811CF7D53600B6E160 /* AppDelegate.swift in Sources */,
 				385C292D211FF3520010B4BA /* CustomMessageFlowLayout.swift in Sources */,
 				38CCCC592258419300DD5482 /* AutocompleteExampleViewController.swift in Sources */,

@@ -30,7 +30,7 @@ NSMutableString *sessionResults;
 -(id) initWithUser:(NSString* )userName {
     self = [super init];
     _userName = userName;
-    _sessionId = [NSString stringWithFormat:@"%@.MinimalTextfieldExample",[[NSUUID UUID] UUIDString]];
+    _sessionId = [NSString stringWithFormat:@"%@.ChatDemo",[[NSUUID UUID] UUIDString]];
     UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     _userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     sessionResults = [[NSMutableString alloc]init];

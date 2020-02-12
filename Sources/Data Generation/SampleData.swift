@@ -50,6 +50,8 @@ final internal class SampleData {
     let nathan = MockUser(senderId: "000001", displayName: "Nathan Tannar")
     let steven = MockUser(senderId: "000002", displayName: "Steven Deutsch")
     let wu = MockUser(senderId: "000003", displayName: "Wu Zhong")
+    let banking = MockUser(senderId: "000004", displayName: "Acme Bank")
+    let marco = MockUser(senderId: "000005", displayName: "Marco Fanti")
 
     lazy var senders = [nathan, steven, wu]
     
@@ -63,7 +65,7 @@ final internal class SampleData {
     ]
 
     var currentSender: MockUser {
-        return steven
+        return marco
     }
 
     var now = Date()
@@ -200,6 +202,7 @@ final internal class SampleData {
     // swiftlint:enable cyclomatic_complexity
 
     func getMessages(count: Int, completion: ([MockMessage]) -> Void) {
+        /*
         var messages: [MockMessage] = []
         // Disable Custom Messages
         UserDefaults.standard.set(false, forKey: "Custom Messages")
@@ -211,6 +214,15 @@ final internal class SampleData {
             let message = MockMessage(text: randomSentence, user: user, messageId: uniqueID, date: date)
             messages.append(message)
         }
+        completion(messages)
+        */
+        var messages: [MockMessage] = []
+        let uniqueID = UUID().uuidString
+        let user = SampleData.shared.banking
+        let date = dateAddingRandomTime()
+        let randomSentence = "Welcome Marco"
+        let message = MockMessage(text: randomSentence, user: user, messageId: uniqueID, date: date)
+        messages.append(message)
         completion(messages)
     }
     
@@ -239,6 +251,15 @@ final internal class SampleData {
         }
         completion(messages)
     }
+    
+    func getBankingMessages(completion: ([MockMessage]) -> Void) {
+        var messages: [MockMessage] = []
+        let uniqueID = UUID().uuidString
+        let user = SampleData.shared.banking
+        let date = dateAddingRandomTime()
+        let randomSentence = "Welcome Marco"
+        let message = MockMessage(text: randomSentence, user: user, messageId: uniqueID, date: date)
+    }
 
     func getAvatarFor(sender: SenderType) -> Avatar {
         let firstName = sender.displayName.components(separatedBy: " ").first
@@ -251,6 +272,10 @@ final internal class SampleData {
             return Avatar(image: #imageLiteral(resourceName: "Steven-Deutsch"), initials: initials)
         case "000003":
             return Avatar(image: #imageLiteral(resourceName: "Wu-Zhong"), initials: initials)
+        case "000004":
+            return Avatar(image: #imageLiteral(resourceName: "mkorglogo"), initials: initials)
+        case "000005":
+            return Avatar(image: #imageLiteral(resourceName: "Marco-Fanti"), initials: initials)
         case "000000":
             return Avatar(image: nil, initials: "SS")
         default:

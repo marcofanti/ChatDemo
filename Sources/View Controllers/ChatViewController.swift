@@ -28,7 +28,12 @@ import InputBarAccessoryView
 
 /// A base class for the example controllers
 class ChatViewController: MessagesViewController, MessagesDataSource {
-    
+    private var bSDK: BehavioSecIOSSDK = BehavioSecIOSSDK.shared()
+    lazy var tMessage: UITextField = {
+        let textField = UITextField()
+        return textField
+    } ()
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -58,7 +63,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        MockSocket.shared.connect(with: [SampleData.shared.nathan, SampleData.shared.wu])
+        MockSocket.shared.connect(with: [SampleData.shared.marco])
             .onNewMessage { [weak self] message in
                 self?.insertMessage(message)
         }
@@ -70,7 +75,19 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         audioController.stopAnyOngoingPlaying()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(false)
+        bSDK.clearRegistrations()
+    }
+
+//    override func viewDidDisappear(_ animated: Bool) {
+ //       super.viewDidDisappear(false)
+ //       //bSDK.clearRegistrations()
+ //   }
+
+
     func loadFirstMessages() {
+        
         DispatchQueue.global(qos: .userInitiated).async {
             let count = 1 // UserDefaults.standard.mockMessagesCount()
             SampleData.shared.getMessages(count: count) { messages in
@@ -96,6 +113,68 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         }
     }
     
+    @objc
+    func printChat() {
+        
+        print("send4 " + (tMessage.text ?? " No text"))
+        let messageText = tMessage.text
+        DispatchQueue.global(qos: .default).async {
+            // fake send request task
+            sleep(1)
+            let user = SampleData.shared.currentSender
+            let message = MockMessage(text: messageText ?? "", user: user, messageId: UUID().uuidString, date: Date())
+           // insertMessage(message)
+            
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.messageInputBar.sendButton.stopAnimating()
+                self?.messageInputBar.inputTextView.placeholder = "Aa"
+                self?.insertMessage(message)
+                self?.messagesCollectionView.scrollToBottom(animated: true)
+            }
+        }
+
+        tMessage.text = nil
+        messageInputBar.sendButton.isEnabled = true
+        //configureMessageInputBarForChat()
+        let behavioSession: BehavioSession = BehavioSession(user: "mfanti@behaviosec.com")
+        let timingData: String? = bSDK.getSummary()
+        //        #if DEBUG
+        //DEBUGGING-INFORMATION
+        print("""
+            
+            
+            
+            timing:
+            ==========
+            \(timingData)
+            
+            
+            
+            """)
+        //        #endif
+        
+        let result = behavioSession.getScoreForTimings(timingData, andNotes: "Login Request", andReportFlag: "0", andOperatorFlag: "0")
+        //#if DEBUG
+        //DEBUGGING-INFORMATION
+        print("""
+            
+            
+            
+            result:
+            ==========
+            \(result)
+            
+            
+            
+            """)
+        bSDK.clearTimingData()
+        // #endif
+    }
+    
+    
+
+    
     func configureMessageCollectionView() {
         
         messagesCollectionView.messagesDataSource = self
@@ -111,16 +190,57 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     func configureMessageInputBar() {
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .primaryColor
+        
+        tMessage.textColor = UIColor.blue
+        
+        messageInputBar.setMiddleContentView(tMessage, animated: false)
+/*
         messageInputBar.sendButton.setTitleColor(.primaryColor, for: .normal)
         messageInputBar.sendButton.setTitleColor(
             UIColor.primaryColor.withAlphaComponent(0.3),
             for: .highlighted
         )
+        
+        
+        messageInputBar.layer.shadowColor = UIColor.black.cgColor
+        messageInputBar.layer.shadowRadius = 4
+        messageInputBar.layer.shadowOpacity = 0.3
+        messageInputBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        messageInputBar.separatorLine.isHidden = true */
+        tMessage.textColor = UIColor.blue
+
+ //       messageInputBar.setMiddleContentView(tMessage, animated: false)
+        
+        //messageInputBar.setMiddleContentView(messageInputBar.inputTextView, animated: false)
+        messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false)
+        //let bottomItems = [makeButton(named: "ic_at"), makeButton(named: "ic_hashtag"), .flexibleSpace]
+        //messageInputBar.setStackViewItems(bottomItems, forStack: .bottom, animated: false)
+        
+        messageInputBar.sendButton.activityViewColor = .white
+        messageInputBar.sendButton.backgroundColor = .primaryColor
+        messageInputBar.sendButton.layer.cornerRadius = 10
+        messageInputBar.sendButton.setTitleColor(.white, for: .normal)
+        messageInputBar.sendButton.setTitleColor(UIColor(white: 1, alpha: 0.3), for: .highlighted)
+        messageInputBar.sendButton.setTitleColor(UIColor(white: 1, alpha: 0.3), for: .disabled)
+        messageInputBar.sendButton.addTarget(self, action: #selector(printChat), for: .touchUpInside)
+        tMessage.text = nil
+        tMessage.textColor = UIColor.black
+        messageInputBar.sendButton.isEnabled = true
+        
+        bSDK.registerKbdTarget(withID: tMessage, andName: "CREDIT_INPUT", andTargetType: NORMAL_TARGET)
+        bSDK.addInformation("data from input view", withName: "message_data")
+        bSDK.addInformation("message1", withName: "viewIdentifier")
+        
+        //TouchSDK
+        bSDK.enableTouch(with: self);
+        bSDK.startMotionDetect()
+
     }
     
     // MARK: - Helpers
     
     func insertMessage(_ message: MockMessage) {
+        print("here 1")
         messageList.append(message)
         // Reload last section to update header/footer labels and insert a new one
         messagesCollectionView.performBatchUpdates({

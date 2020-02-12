@@ -32,7 +32,7 @@ final internal class LaunchViewController: UITableViewController {
         return .lightContent
     }
 
-    let cells = ["Banking Demo (DialogFlow)", "Banking Demo (Watson)", "Banking Demo (Lex)", "Password Reset (DialogFlow)", "Settings", "SSO Demo", "Company", "Solutions"]
+    let cells = ["Banking Demo (BasicExampleViewController)", "Banking Demo (BankingDemoDialogFlowViewController)", "Banking Demo (AdvancedExampleViewController)", "Banking Demo (AutocompleteExampleViewController)", "Password Reset (MessageContainerController)", "Settings", "SSO Demo", "SSO Demo Expensify", "Company", "Solutions"]
     
     // MARK: - View Life Cycle
     
@@ -76,13 +76,15 @@ final internal class LaunchViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = cells[indexPath.row]
         switch cell {
-        case "Banking Demo (DialogFlow)":
+        case "Banking Demo (BasicExampleViewController)":
             navigationController?.pushViewController(BasicExampleViewController(), animated: true)
-        case "Banking Demo (Watson)":
+        case "Banking Demo (BankingDemoDialogFlowViewController)":
+            navigationController?.pushViewController(BankingDemoDialogFlowViewController(), animated: true)
+        case "Banking Demo (AdvancedExampleViewController)":
             navigationController?.pushViewController(AdvancedExampleViewController(), animated: true)
-        case "Banking Demo (Lex)":
+        case "Banking Demo (AutocompleteExampleViewController)":
             navigationController?.pushViewController(AutocompleteExampleViewController(), animated: true)
-        case "Password Reset (DialogFlow)":
+        case "Password Reset (MessageContainerController)":
             navigationController?.pushViewController(MessageContainerController(), animated: true)
         case "Settings":
             navigationController?.pushViewController(SettingsViewController(), animated: true)
@@ -94,6 +96,9 @@ final internal class LaunchViewController: UITableViewController {
             openURL(url)
         case "SSO Demo":
             guard let url = URL(string: "https://ping.behaviosec.com:9031/idp/startSSO.ping?PartnerSpId=https%3A%2F%2Fsaml.salesforce.com") else { return }
+            openURL(url)
+        case "SSO Demo Expensify":
+            guard let url = URL(string: "https://ping.behaviosec.com:9031/idp/startSSO.ping?PartnerSpId=https%3A%2F%2Fwww.expensify.com") else { return }
             openURL(url)
         default:
             assertionFailure("You need to implement the action for this cell: \(cell)")
