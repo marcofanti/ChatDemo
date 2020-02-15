@@ -76,10 +76,58 @@ final internal class SettingsViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: TextFieldTableViewCell.identifier)
         tableView.tableFooterView = UIView()
+        callNetwork()
         configurePickerView()
         configureToolbar()
     }
     
+    func callNetwork() {
+        let todoEndpoint: String = "http://192.168.7.165:6666/assistant/api"
+        guard let url = URL(string: todoEndpoint) else {
+            print("Error: cannot create URL")
+            return
+        }
+
+        let session = URLSession.shared
+        let urlRequest = URLRequest(url: url)
+
+        let task = session.dataTask(with: urlRequest) { (data, response, error) in
+            
+            DispatchQueue.main.async {
+                // check for any errors
+                guard error == nil else {
+                    print("error calling GET on /todos/1")
+                    print(error!)
+                    return
+                }
+
+                // make sure we got data
+                guard let responseData = data else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                // check the status code
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    print("Error: It's not a HTTP URL response")
+                    return
+                }
+                
+                // Reponse status
+                print("Response status code: \(httpResponse.statusCode)")
+                print("Response status debugDescription: \(httpResponse.debugDescription)")
+                print("Response status localizedString: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
+                
+                let networkAndJson = NetworkAndJson()
+                networkAndJson.getInitialMessage(responseData: responseData)
+                
+            }
+        }
+        task.resume()
+    }
+
+    
+
     // MARK: - TableViewDelegate & TableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

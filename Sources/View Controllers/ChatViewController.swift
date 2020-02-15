@@ -1,27 +1,3 @@
-/*
-MIT License
-
-Copyright (c) 2017-2019 MessageKit
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
 import UIKit
 import MessageKit
 import InputBarAccessoryView
@@ -33,6 +9,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         let textField = UITextField()
         return textField
     } ()
+    let behavioSession: BehavioSession = BehavioSession(user: "marcofanti2@behaviosec.com")
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -57,6 +34,17 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         configureMessageCollectionView()
         configureMessageInputBar()
         loadFirstMessages()
+       
+        var initial = "Welcome"
+         
+         /*
+        SampleData.shared.callNetworkAF() {
+            (initial: String) in
+            self.add3(initial: initial)
+            print("got back: \(initial)")
+        }
+        print("**************************"  + initial) */
+        add1(initial: initial) 
         title = "BehavioSec "
     }
     
@@ -77,17 +65,13 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
+        behavioSession.finalize()
+        print("10 bsdk finalize ")
         bSDK.clearRegistrations()
+        print("11 bsdk clearRegistrations ")
     }
 
-//    override func viewDidDisappear(_ animated: Bool) {
- //       super.viewDidDisappear(false)
- //       //bSDK.clearRegistrations()
- //   }
-
-
     func loadFirstMessages() {
-        
         DispatchQueue.global(qos: .userInitiated).async {
             let count = 1 // UserDefaults.standard.mockMessagesCount()
             SampleData.shared.getMessages(count: count) { messages in
@@ -95,6 +79,48 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
                     self.messageList = messages
                     self.messagesCollectionView.reloadData()
                     self.messagesCollectionView.scrollToBottom()
+                }
+            }
+        }
+    }
+    
+    func add1(initial: String) {
+        DispatchQueue.global(qos: .userInitiated).async {
+        SampleData.shared.getMessages1(initial: initial) { messages in
+            DispatchQueue.main.async {
+                self.messageList = messages
+                self.messagesCollectionView.reloadData()
+                self.messagesCollectionView.scrollToBottom()
+            }
+        }
+        }
+    }
+    
+    func add2(initial: String) {
+         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
+            print("calling add2 with initial " + initial)
+            SampleData.shared.getMessages1(initial: initial) { messages in
+                DispatchQueue.main.async {
+                    self.messageList.insert(contentsOf: messages, at: 0)
+                    self.messagesCollectionView.reloadDataAndKeepOffset()
+                    self.refreshControl.endRefreshing()
+                }
+            }
+        }
+    }
+    
+
+    func add3(initial: String) {
+         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
+            print("calling add2 with initial " + initial)
+            SampleData.shared.getMessages1(initial: initial) { messages in
+                DispatchQueue.main.async {
+                    let mlSize = self.messageList.count
+                    print("size = " + String(mlSize))
+                    self.messageList.insert(contentsOf: messages, at: mlSize)
+                    self.messagesCollectionView.reloadDataAndKeepOffset()
+                    self.messagesCollectionView.scrollToBottom()
+                    self.refreshControl.endRefreshing()
                 }
             }
         }
@@ -115,7 +141,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     
     @objc
     func printChat() {
-        
+  //       callNetwork()
         print("send4 " + (tMessage.text ?? " No text"))
         let messageText = tMessage.text
         DispatchQueue.global(qos: .default).async {
@@ -132,16 +158,23 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
                 self?.insertMessage(message)
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.add3(initial: "Another Message")
+                self?.messagesCollectionView.scrollToBottom(animated: true)
+            }
         }
 
         tMessage.text = nil
         messageInputBar.sendButton.isEnabled = true
         //configureMessageInputBarForChat()
-        let behavioSession: BehavioSession = BehavioSession(user: "mfanti@behaviosec.com")
+
+        print("6 - bsdk getSummary ")
+
         let timingData: String? = bSDK.getSummary()
         //        #if DEBUG
         //DEBUGGING-INFORMATION
-        print("""
+ /*       print("""
             
             
             
@@ -152,12 +185,13 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
             
             
             """)
-        //        #endif
+ */       //        #endif
         
-        let result = behavioSession.getScoreForTimings(timingData, andNotes: "Login Request", andReportFlag: "0", andOperatorFlag: "0")
+        print("7 - bsdk getScoreForTimings ")
+        let result = behavioSession.getScoreForTimings(timingData, andNotes: "Login Request", andReportFlag: "0", andOperatorFlag: "512")
         //#if DEBUG
         //DEBUGGING-INFORMATION
-        print("""
+ /*       print("""
             
             
             
@@ -167,13 +201,13 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
             
             
             
-            """)
+            """) */
+        print("8 - bsdk clearTimingData ")
         bSDK.clearTimingData()
+        print("9 - bsdk startMotionDetect ")
+        bSDK.startMotionDetect()
         // #endif
     }
-    
-    
-
     
     func configureMessageCollectionView() {
         
@@ -227,12 +261,17 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         tMessage.textColor = UIColor.black
         messageInputBar.sendButton.isEnabled = true
         
+        print("1 - bsdk registerKbdTarget ")
         bSDK.registerKbdTarget(withID: tMessage, andName: "CREDIT_INPUT", andTargetType: NORMAL_TARGET)
+        print("2 - bsdk addInformation ")
         bSDK.addInformation("data from input view", withName: "message_data")
+        print("3 - bsdk addInformation ")
         bSDK.addInformation("message1", withName: "viewIdentifier")
         
         //TouchSDK
+        print("4 - bsdk enableTouch ")
         bSDK.enableTouch(with: self);
+        print("5 - bsdk startMotionDetect ")
         bSDK.startMotionDetect()
 
     }

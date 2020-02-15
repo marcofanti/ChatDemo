@@ -41,6 +41,20 @@
 		D9087FA923F1E9C70057F85D /* BSSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D9087FA823F1E9C70057F85D /* BSSession.m */; };
 		D9087FD823F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9087FD723F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift */; };
 		D9087FDA23F2F2920057F85D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9087FD923F2F2920057F85D /* Settings.bundle */; };
+		D95C9B5623F4AD8200493776 /* NetworkAndJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B5523F4AD8200493776 /* NetworkAndJson.swift */; };
+		D95C9B7E23F629AE00493776 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7623F629AE00493776 /* Entity.swift */; };
+		D95C9B7F23F629AE00493776 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7723F629AE00493776 /* Option.swift */; };
+		D95C9B8023F629AE00493776 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7823F629AE00493776 /* Input.swift */; };
+		D95C9B8123F629AE00493776 /* Intent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7923F629AE00493776 /* Intent.swift */; };
+		D95C9B8223F629AE00493776 /* RootClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7A23F629AE00493776 /* RootClass.swift */; };
+		D95C9B8323F629AE00493776 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7B23F629AE00493776 /* Value.swift */; };
+		D95C9B8423F629AE00493776 /* Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7C23F629AE00493776 /* Generic.swift */; };
+		D95C9B8523F629AE00493776 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7D23F629AE00493776 /* Output.swift */; };
+		D96EB6C023F83318002E9A89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6BF23F83318002E9A89 /* ViewController.swift */; };
+		D96EB6C223F83344002E9A89 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6C123F83344002E9A89 /* Extensions.swift */; };
+		D96EB6D323F83DEA002E9A89 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6D223F83DEA002E9A89 /* Message.swift */; };
+		D96EB6D523F83EE0002E9A89 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6D423F83EE0002E9A89 /* ChatService.swift */; };
+		D96EB6D723F83F9F002E9A89 /* ChatbotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6D623F83F9F002E9A89 /* ChatbotService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +137,20 @@
 		D9087FA823F1E9C70057F85D /* BSSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSession.m; sourceTree = "<group>"; };
 		D9087FD723F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankingDemoDialogFlowViewController.swift; sourceTree = "<group>"; };
 		D9087FD923F2F2920057F85D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		D95C9B5523F4AD8200493776 /* NetworkAndJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAndJson.swift; sourceTree = "<group>"; };
+		D95C9B7623F629AE00493776 /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		D95C9B7723F629AE00493776 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		D95C9B7823F629AE00493776 /* Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		D95C9B7923F629AE00493776 /* Intent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Intent.swift; sourceTree = "<group>"; };
+		D95C9B7A23F629AE00493776 /* RootClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootClass.swift; sourceTree = "<group>"; };
+		D95C9B7B23F629AE00493776 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
+		D95C9B7C23F629AE00493776 /* Generic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generic.swift; sourceTree = "<group>"; };
+		D95C9B7D23F629AE00493776 /* Output.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
+		D96EB6BF23F83318002E9A89 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D96EB6C123F83344002E9A89 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D96EB6D223F83DEA002E9A89 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		D96EB6D423F83EE0002E9A89 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
+		D96EB6D623F83F9F002E9A89 /* ChatbotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatbotService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +194,7 @@
 		385C2929211FF33D0010B4BA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D96EB6D223F83DEA002E9A89 /* Message.swift */,
 				385C2926211FF33B0010B4BA /* MockMessage.swift */,
 				385C2925211FF33A0010B4BA /* MockSocket.swift */,
 				383B9EB22172A1C4008AB91A /* MockUser.swift */,
@@ -193,6 +222,7 @@
 		385C293A211FF3800010B4BA /* Data Generation */ = {
 			isa = PBXGroup;
 			children = (
+				D96EB6C123F83344002E9A89 /* Extensions.swift */,
 				385C2936211FF37B0010B4BA /* Lorem.swift */,
 				385C2934211FF37A0010B4BA /* SampleData.swift */,
 			);
@@ -202,6 +232,7 @@
 		385C2949211FF3930010B4BA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D96EB6BF23F83318002E9A89 /* ViewController.swift */,
 				385C293B211FF38E0010B4BA /* AdvancedExampleViewController.swift */,
 				38CCCC582258419300DD5482 /* AutocompleteExampleViewController.swift */,
 				D9087FD723F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift */,
@@ -270,11 +301,14 @@
 		882B5E771CF7D53600B6E160 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D96EB6C323F8338C002E9A89 /* Utils */,
+				D95C9B5923F616C400493776 /* JSON */,
 				882B5E781CF7D53600B6E160 /* AppDelegate.swift */,
 				D9087FA323F1E9A00057F85D /* BehavioSecIOSSDK.a */,
 				D9087FA423F1E9A00057F85D /* BehavioSecIOSSDK.h */,
 				D9087FA723F1E9C70057F85D /* BSSession.h */,
 				D9087FA823F1E9C70057F85D /* BSSession.m */,
+				D95C9B5523F4AD8200493776 /* NetworkAndJson.swift */,
 				50739F9421C5075D008CA369 /* AudioController */,
 				385C2949211FF3930010B4BA /* View Controllers */,
 				385C293A211FF3800010B4BA /* Data Generation */,
@@ -319,6 +353,30 @@
 				2AC6E3F5C11E39F57598DBE6 /* Pods_ChatExampleUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D95C9B5923F616C400493776 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				D95C9B7623F629AE00493776 /* Entity.swift */,
+				D95C9B7C23F629AE00493776 /* Generic.swift */,
+				D95C9B7823F629AE00493776 /* Input.swift */,
+				D95C9B7923F629AE00493776 /* Intent.swift */,
+				D95C9B7723F629AE00493776 /* Option.swift */,
+				D95C9B7D23F629AE00493776 /* Output.swift */,
+				D95C9B7A23F629AE00493776 /* RootClass.swift */,
+				D95C9B7B23F629AE00493776 /* Value.swift */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		D96EB6C323F8338C002E9A89 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D96EB6D423F83EE0002E9A89 /* ChatService.swift */,
+				D96EB6D623F83F9F002E9A89 /* ChatbotService.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,13 +561,21 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ChatExample/Pods-ChatExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Scaledrone/Scaledrone.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputBarAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Scaledrone.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -555,8 +621,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				385C2922211FF32E0010B4BA /* CustomCell.swift in Sources */,
+				D95C9B8423F629AE00493776 /* Generic.swift in Sources */,
+				D95C9B7E23F629AE00493776 /* Entity.swift in Sources */,
 				D9087FA923F1E9C70057F85D /* BSSession.m in Sources */,
 				385C2946211FF38F0010B4BA /* LaunchViewController.swift in Sources */,
+				D96EB6D523F83EE0002E9A89 /* ChatService.swift in Sources */,
 				385C2939211FF37B0010B4BA /* Lorem.swift in Sources */,
 				385C2928211FF33B0010B4BA /* MockMessage.swift in Sources */,
 				385C2923211FF32E0010B4BA /* TableViewCells.swift in Sources */,
@@ -567,15 +636,26 @@
 				385C2932211FF3630010B4BA /* UIViewController+Extensions.swift in Sources */,
 				385C292B211FF3450010B4BA /* Settings+UserDefaults.swift in Sources */,
 				385C2945211FF38F0010B4BA /* NavigationController.swift in Sources */,
+				D96EB6C023F83318002E9A89 /* ViewController.swift in Sources */,
 				385C2948211FF38F0010B4BA /* ChatViewController.swift in Sources */,
+				D95C9B8023F629AE00493776 /* Input.swift in Sources */,
+				D96EB6D723F83F9F002E9A89 /* ChatbotService.swift in Sources */,
 				385C2944211FF38F0010B4BA /* MessageContainerController.swift in Sources */,
+				D95C9B8323F629AE00493776 /* Value.swift in Sources */,
+				D95C9B8123F629AE00493776 /* Intent.swift in Sources */,
 				383B9EB32172A1C4008AB91A /* MockUser.swift in Sources */,
 				385C2943211FF38F0010B4BA /* SettingsViewController.swift in Sources */,
 				385C2927211FF33B0010B4BA /* MockSocket.swift in Sources */,
 				385C2947211FF38F0010B4BA /* BasicExampleViewController.swift in Sources */,
+				D95C9B8523F629AE00493776 /* Output.swift in Sources */,
+				D95C9B7F23F629AE00493776 /* Option.swift in Sources */,
+				D96EB6D323F83DEA002E9A89 /* Message.swift in Sources */,
 				D9087FD823F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift in Sources */,
 				882B5E811CF7D53600B6E160 /* AppDelegate.swift in Sources */,
 				385C292D211FF3520010B4BA /* CustomMessageFlowLayout.swift in Sources */,
+				D95C9B8223F629AE00493776 /* RootClass.swift in Sources */,
+				D96EB6C223F83344002E9A89 /* Extensions.swift in Sources */,
+				D95C9B5623F4AD8200493776 /* NetworkAndJson.swift in Sources */,
 				38CCCC592258419300DD5482 /* AutocompleteExampleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -670,7 +750,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -721,7 +801,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
@@ -739,6 +819,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = A79UQK638X;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -761,6 +842,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = A79UQK638X;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -840,7 +922,7 @@
 				882B5E5C1CF7D4B900B6E160 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		882B5E5D1CF7D4B900B6E160 /* Build configuration list for PBXNativeTarget "ChatExample" */ = {
 			isa = XCConfigurationList;
@@ -849,7 +931,7 @@
 				882B5E5F1CF7D4B900B6E160 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		882B5E601CF7D4B900B6E160 /* Build configuration list for PBXNativeTarget "ChatExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -858,7 +940,7 @@
 				882B5E621CF7D4B900B6E160 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		882B5E631CF7D4B900B6E160 /* Build configuration list for PBXNativeTarget "ChatExampleUITests" */ = {
 			isa = XCConfigurationList;
@@ -867,7 +949,7 @@
 				882B5E651CF7D4B900B6E160 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
