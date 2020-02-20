@@ -221,7 +221,7 @@ final internal class SampleData {
     }
     
     func getMessages(count: Int, completion: ([MockMessage]) -> Void) {
-        var initial = "AWelcome"
+        var initial = ""
         //self.callNetworkAF(completion: initial)
         
         var messages: [MockMessage] = []
@@ -234,112 +234,6 @@ final internal class SampleData {
         completion(messages)
     }
     
-    func callNetworkAF(completion: @escaping (String) -> Void) {
-        let urlString = "http://192.168.7.165:6666/assistant/api/v2/assistants/b7d8c8fe-0e39-4fd5-bfc0-e9b22868c1cb/sessions"
-        AF.request(urlString).responseJSON { response in
-            guard let value = response.value else {
-                        print("Error while fetching tags: \(String(describing: response.error))")
-                        completion("")
-                        return
-                }
-                
-                let json = try? JSON(value)
-                let sessionId = json!["session_id"].stringValue
-                print("Sessionid " + sessionId)
-                completion(sessionId)
-                print("Sessionid2 " + sessionId)
-
-         }
-     }
-    
-    func callNetwork() -> String {
-        var initial = "not set"
-        let sessionEndpoint: String = "http://192.168.7.165:6666/assistant/api/v2/assistants/b7d8c8fe-0e39-4fd5-bfc0-e9b22868c1cb/sessions"
-        guard let url = URL(string: sessionEndpoint) else {
-            print("Error: cannot create URL " + sessionEndpoint)
-            return "Error: cannot create URL " + sessionEndpoint
-        }
-
-        let session = URLSession.shared
-        let urlRequest = URLRequest(url: url)
-
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
-            
-            DispatchQueue.main.async {
-                // check for any errors
-                guard error == nil else {
-                    print("error calling get session id")
-                    print(error!)
-                    return
-                }
-
-                // make sure we got data
-                guard let responseData = data else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                // check the status code
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    print("Error: It's not a HTTP URL response")
-                    return
-                }
-                
-                // Reponse status
-                print("Response status code: \(httpResponse.statusCode)")
-                print("Response status debugDescription: \(httpResponse.debugDescription)")
-                print("Response status localizedString: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
-                
-                let networkAndJosn = NetworkAndJson()
-                initial = networkAndJosn.getSession(responseData: responseData)
-            }
-        }
-        task.resume()
-        
-        let sessionEndpoint2: String = "http://192.168.7.165:6666/assistant/api/v2/assistants/b7d8c8fe-0e39-4fd5-bfc0-e9b22868c1cb/sessions/260b23f9-a9dc-4d2a-a200-66fbc8dd160d/"
-        guard let url2 = URL(string: sessionEndpoint2) else {
-            print("Error: cannot create URL " + sessionEndpoint2)
-            return "Error: cannot create URL " + sessionEndpoint2
-        }
-
-        let session2 = URLSession.shared
-        let urlRequest2 = URLRequest(url: url2)
-
-        let task2 = session2.dataTask(with: urlRequest2) { (data, response, error) in
-            
-            DispatchQueue.main.async {
-                // check for any errors
-                guard error == nil else {
-                    print("error calling GET on /todos/1")
-                    print(error!)
-                    return
-                }
-
-                // make sure we got data
-                guard let responseData = data else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                // check the status code
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    print("Error: It's not a HTTP URL response")
-                    return
-                }
-                
-                // Reponse status
-                print("Response status code: \(httpResponse.statusCode)")
-                print("Response status debugDescription: \(httpResponse.debugDescription)")
-                print("Response status localizedString: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
-                
-                let networkAndJosn = NetworkAndJson()
-                initial = networkAndJosn.getInitialMessage(responseData: responseData)
-            }
-        }
-        task2.resume()
-        return initial
-    }
-
     func getAdvancedMessages(count: Int, completion: ([MockMessage]) -> Void) {
         var messages: [MockMessage] = []
         // Enable Custom Messages

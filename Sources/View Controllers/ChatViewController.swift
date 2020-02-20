@@ -5,11 +5,16 @@ import InputBarAccessoryView
 /// A base class for the example controllers
 class ChatViewController: MessagesViewController, MessagesDataSource {
     private var bSDK: BehavioSecIOSSDK = BehavioSecIOSSDK.shared()
+    var status = ""
     lazy var tMessage: UITextField = {
         let textField = UITextField()
         return textField
     } ()
     let behavioSession: BehavioSession = BehavioSession(user: "marcofanti2@behaviosec.com")
+
+    var chatService: ChatService!
+    var chatbotService: ChatbotService!
+    var member: Member!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -34,17 +39,16 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         configureMessageCollectionView()
         configureMessageInputBar()
         loadFirstMessages()
-       
-        var initial = "Welcome"
-         
-         /*
+        Network.sessionId = ""
+        print ("viewDidLoad " + Network.sessionId)
+                  /*
         SampleData.shared.callNetworkAF() {
             (initial: String) in
             self.add3(initial: initial)
             print("got back: \(initial)")
         }
         print("**************************"  + initial) */
-        add1(initial: initial) 
+//        add1(initial: initial)
         title = "BehavioSec "
     }
     
@@ -69,9 +73,41 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         print("10 bsdk finalize ")
         bSDK.clearRegistrations()
         print("11 bsdk clearRegistrations ")
+        Network.sessionId = ""
+        print ("viewWillDisappear " + Network.sessionId)
     }
 
+       func setUpChatbot() {
+           member = Member(name: .randomName, color: .random)
+           
+           chatService = ChatService(member: member, onRecievedMessage: {
+               [weak self] message in
+            print("Message received from user " + message.text)
+//               self?.messages.append(message)
+//               self?.messagesCollectionView.reloadData()
+//               self?.messagesCollectionView.scrollToBottom(animated: true)
+           })
+                      
+           chatService.connect()
+       }
+       
+       func setup() {
+           print("1 - bsdk registerKbdTarget ")
+           bSDK.registerKbdTarget(withID: tMessage, andName: "CREDIT_INPUT", andTargetType: NORMAL_TARGET)
+           print("2 - bsdk addInformation ")
+           bSDK.addInformation("data from input view", withName: "message_data")
+           print("3 - bsdk addInformation ")
+           bSDK.addInformation("message1", withName: "viewIdentifier")
+           
+           //TouchSDK
+           print("4 - bsdk enableTouch ")
+           bSDK.enableTouch(with: self);
+           print("5 - bsdk startMotionDetect ")
+           bSDK.startMotionDetect()
+       }
+
     func loadFirstMessages() {
+        /*
         DispatchQueue.global(qos: .userInitiated).async {
             let count = 1 // UserDefaults.standard.mockMessagesCount()
             SampleData.shared.getMessages(count: count) { messages in
@@ -81,7 +117,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
                     self.messagesCollectionView.scrollToBottom()
                 }
             }
-        }
+        } */
     }
     
     func add1(initial: String) {
@@ -112,8 +148,16 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
 
     func add3(initial: String) {
          DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
-            print("calling add2 with initial " + initial)
-            SampleData.shared.getMessages1(initial: initial) { messages in
+            print("calling add3 with initial " + initial)
+            var message = initial
+            let splitInitial = initial.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: false)
+            if (splitInitial.count > 1) {
+                let str = String(splitInitial[0])
+                let range = str.index(after: str.startIndex)..<str.endIndex
+                self.status = String(str[range])
+                message = String(splitInitial[1])
+            }
+            SampleData.shared.getMessages1(initial: message) { messages in
                 DispatchQueue.main.async {
                     let mlSize = self.messageList.count
                     print("size = " + String(mlSize))
@@ -128,6 +172,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     
     @objc
     func loadMoreMessages() {
+        /*
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
             SampleData.shared.getMessages(count: 20) { messages in
                 DispatchQueue.main.async {
@@ -136,12 +181,27 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
                     self.refreshControl.endRefreshing()
                 }
             }
-        }
+        } */
+    }
+    
+    func thisIsWhatShouldBeCalledOnResponseFromNetwork(message: String) {
+        print("***************************** I got it \(message)")
+        add3(initial: message)
     }
     
     @objc
     func printChat() {
-  //       callNetwork()
+        let timingData: String? = bSDK.getSummary()
+        print("6 - bsdk getSummary ")
+
+        print("7 - bsdk getScoreForTimings ")
+
+        print("8 - bsdk clearTimingData ")
+        bSDK.clearTimingData()
+        print("9 - bsdk startMotionDetect ")
+        bSDK.startMotionDetect()
+        let network = Network()
+        network.callNetwork(timingData: timingData!, text: tMessage.text ?? "", completion: thisIsWhatShouldBeCalledOnResponseFromNetwork)
         print("send4 " + (tMessage.text ?? " No text"))
         let messageText = tMessage.text
         DispatchQueue.global(qos: .default).async {
@@ -149,6 +209,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
             sleep(1)
             let user = SampleData.shared.currentSender
             let message = MockMessage(text: messageText ?? "", user: user, messageId: UUID().uuidString, date: Date())
+            self.status = "Sent"
            // insertMessage(message)
             
             
@@ -158,54 +219,12 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
                 self?.insertMessage(message)
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.add3(initial: "Another Message")
-                self?.messagesCollectionView.scrollToBottom(animated: true)
-            }
         }
 
         tMessage.text = nil
         messageInputBar.sendButton.isEnabled = true
         //configureMessageInputBarForChat()
 
-        print("6 - bsdk getSummary ")
-
-        let timingData: String? = bSDK.getSummary()
-        //        #if DEBUG
-        //DEBUGGING-INFORMATION
- /*       print("""
-            
-            
-            
-            timing:
-            ==========
-            \(timingData)
-            
-            
-            
-            """)
- */       //        #endif
-        
-        print("7 - bsdk getScoreForTimings ")
-        let result = behavioSession.getScoreForTimings(timingData, andNotes: "Login Request", andReportFlag: "0", andOperatorFlag: "512")
-        //#if DEBUG
-        //DEBUGGING-INFORMATION
- /*       print("""
-            
-            
-            
-            result:
-            ==========
-            \(result)
-            
-            
-            
-            """) */
-        print("8 - bsdk clearTimingData ")
-        bSDK.clearTimingData()
-        print("9 - bsdk startMotionDetect ")
-        bSDK.startMotionDetect()
         // #endif
     }
     
@@ -325,8 +344,8 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     }
     
     func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        
-        return NSAttributedString(string: "Reading", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+        let thisStatus = status
+        return NSAttributedString(string: thisStatus, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
     }
     
     func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
@@ -459,14 +478,14 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 
         // Here we can parse for which substrings were autocompleted
         let attributedText = messageInputBar.inputTextView.attributedText!
-        let range = NSRange(location: 0, length: attributedText.length)
-        attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in
+ //       let range = NSRange(location: 0, length: attributedText.length)
+/*        attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in
 
             let substring = attributedText.attributedSubstring(from: range)
             let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
             print("Autocompleted: `", substring, "` with context: ", context ?? [])
         }
-
+*/
         let components = inputBar.inputTextView.components
         messageInputBar.inputTextView.text = String()
         messageInputBar.invalidatePlugins()

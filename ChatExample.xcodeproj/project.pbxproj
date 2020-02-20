@@ -41,7 +41,7 @@
 		D9087FA923F1E9C70057F85D /* BSSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D9087FA823F1E9C70057F85D /* BSSession.m */; };
 		D9087FD823F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9087FD723F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift */; };
 		D9087FDA23F2F2920057F85D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9087FD923F2F2920057F85D /* Settings.bundle */; };
-		D95C9B5623F4AD8200493776 /* NetworkAndJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B5523F4AD8200493776 /* NetworkAndJson.swift */; };
+		D95C9B5623F4AD8200493776 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B5523F4AD8200493776 /* Json.swift */; };
 		D95C9B7E23F629AE00493776 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7623F629AE00493776 /* Entity.swift */; };
 		D95C9B7F23F629AE00493776 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7723F629AE00493776 /* Option.swift */; };
 		D95C9B8023F629AE00493776 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C9B7823F629AE00493776 /* Input.swift */; };
@@ -55,6 +55,7 @@
 		D96EB6D323F83DEA002E9A89 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6D223F83DEA002E9A89 /* Message.swift */; };
 		D96EB6D523F83EE0002E9A89 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6D423F83EE0002E9A89 /* ChatService.swift */; };
 		D96EB6D723F83F9F002E9A89 /* ChatbotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6D623F83F9F002E9A89 /* ChatbotService.swift */; };
+		D96EB6DD23F89874002E9A89 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96EB6DC23F89874002E9A89 /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,7 +138,7 @@
 		D9087FA823F1E9C70057F85D /* BSSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSession.m; sourceTree = "<group>"; };
 		D9087FD723F2E8BE0057F85D /* BankingDemoDialogFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankingDemoDialogFlowViewController.swift; sourceTree = "<group>"; };
 		D9087FD923F2F2920057F85D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		D95C9B5523F4AD8200493776 /* NetworkAndJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAndJson.swift; sourceTree = "<group>"; };
+		D95C9B5523F4AD8200493776 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
 		D95C9B7623F629AE00493776 /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		D95C9B7723F629AE00493776 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		D95C9B7823F629AE00493776 /* Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 		D96EB6D223F83DEA002E9A89 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		D96EB6D423F83EE0002E9A89 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		D96EB6D623F83F9F002E9A89 /* ChatbotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatbotService.swift; sourceTree = "<group>"; };
+		D96EB6DC23F89874002E9A89 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,7 +310,6 @@
 				D9087FA423F1E9A00057F85D /* BehavioSecIOSSDK.h */,
 				D9087FA723F1E9C70057F85D /* BSSession.h */,
 				D9087FA823F1E9C70057F85D /* BSSession.m */,
-				D95C9B5523F4AD8200493776 /* NetworkAndJson.swift */,
 				50739F9421C5075D008CA369 /* AudioController */,
 				385C2949211FF3930010B4BA /* View Controllers */,
 				385C293A211FF3800010B4BA /* Data Generation */,
@@ -375,6 +376,8 @@
 			children = (
 				D96EB6D423F83EE0002E9A89 /* ChatService.swift */,
 				D96EB6D623F83F9F002E9A89 /* ChatbotService.swift */,
+				D95C9B5523F4AD8200493776 /* Json.swift */,
+				D96EB6DC23F89874002E9A89 /* Network.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				385C2942211FF38F0010B4BA /* AdvancedExampleViewController.swift in Sources */,
 				50739F9621C5090A008CA369 /* BasicAudioController.swift in Sources */,
 				385C2937211FF37B0010B4BA /* SampleData.swift in Sources */,
+				D96EB6DD23F89874002E9A89 /* Network.swift in Sources */,
 				385C2931211FF3630010B4BA /* UIColor+Extensions.swift in Sources */,
 				385C2932211FF3630010B4BA /* UIViewController+Extensions.swift in Sources */,
 				385C292B211FF3450010B4BA /* Settings+UserDefaults.swift in Sources */,
@@ -655,7 +659,7 @@
 				385C292D211FF3520010B4BA /* CustomMessageFlowLayout.swift in Sources */,
 				D95C9B8223F629AE00493776 /* RootClass.swift in Sources */,
 				D96EB6C223F83344002E9A89 /* Extensions.swift in Sources */,
-				D95C9B5623F4AD8200493776 /* NetworkAndJson.swift in Sources */,
+				D95C9B5623F4AD8200493776 /* Json.swift in Sources */,
 				38CCCC592258419300DD5482 /* AutocompleteExampleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

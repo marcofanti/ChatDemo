@@ -118,8 +118,8 @@ final internal class SettingsViewController: UITableViewController {
                 print("Response status debugDescription: \(httpResponse.debugDescription)")
                 print("Response status localizedString: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
                 
-                let networkAndJson = NetworkAndJson()
-                networkAndJson.getInitialMessage(responseData: responseData)
+                let json = Json()
+                json.getInitialMessage(responseData: responseData)
                 
             }
         }
